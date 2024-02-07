@@ -44,8 +44,6 @@ chain = prompt | llm
 
 while True:
     # Request a new prompt from the user
-    query = get_voice_input()
-
     play_text_to_speech("... Hello. How can I help you?")
 
     try:
