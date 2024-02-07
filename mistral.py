@@ -51,7 +51,8 @@ while True:
         continue
 
     try:
-        play_text_to_speech("... You said: " + query + ". Please wait while I think.")
+        play_text_to_speech("... You said: " + query)
+        play_text_to_speech("Please wait while I think.")
     except:
         continue
 
