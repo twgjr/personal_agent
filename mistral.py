@@ -7,13 +7,11 @@ import os
 def get_voice_input():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Please say something...")
         audio = r.listen(source)
-        print("Got it! Now to recognize it...")
     try:
         return r.recognize_google(audio)
     except sr.UnknownValueError:
-        return "Google Speech Recognition could not understand audio"
+        return get_voice_input()
     except sr.RequestError as e:
         return "Could not request results from Google Speech Recognition service; {0}".format(e)
 
@@ -40,11 +38,11 @@ while True:
     query = get_voice_input()
 
     if query == "Wally":
-      play_text_to_speech("...Hello, I am Wally. How can I help you?")
+      play_text_to_speech("... Hello, I am Wally. How can I help you?")
     
       query = get_voice_input()
-      play_text_to_speech("...You said: " + query)
-      play_text_to_speech("...Please wait while I think.")
+      play_text_to_speech("... You said: " + query)
+      play_text_to_speech("... Please wait while I think.")
       
       # Check if the user wants to exit the loop
       if query.lower() == 'exit':
@@ -52,7 +50,7 @@ while True:
 
       # send llm respons to text to speech
       response = chain.invoke({"input": query}) 
-      play_text_to_speech("..."+response)
+      play_text_to_speech("... "+response)
 
       # Optionally, add a newline or some separation after each response
       print("\n--- End of response ---\n")
