@@ -11,7 +11,7 @@ def get_voice_input():
     try:
         return r.recognize_google(audio)
     except sr.UnknownValueError:
-        return r.recognize_google(audio)
+        return "Unknown value error"
     except sr.RequestError as e:
         return "Could not request results from Google Speech Recognition service; {0}".format(e)
 
@@ -25,7 +25,7 @@ llm = Ollama(model="mistral")
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", "Keep your answers short and to the point. \
-     You are talking to elementary school aged children."),
+     You are talking to an elementary school aged child."),
     ("user", "{input}")
 ])
 
@@ -34,13 +34,14 @@ chain = prompt | llm
 
 while True:
     # Request a new prompt from the user
-    #  query = input("Enter your query (or type 'exit' to quit): ")
     query = get_voice_input()
 
     if query == "Wally":
       play_text_to_speech("... Hello, I am Wally. How can I help you?")
     
       query = get_voice_input()
+      while query == "Unknown value error":
+         query = get_voice_input()
       play_text_to_speech("... You said: " + query)
       play_text_to_speech("... Please wait while I think.")
       
