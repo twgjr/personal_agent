@@ -1,5 +1,19 @@
 from langchain_community.llms import Ollama
 from langchain_core.prompts import ChatPromptTemplate
+import speech_recognition as sr
+
+def get_voice_input():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Please say something...")
+        audio = r.listen(source)
+        print("Got it! Now to recognize it...")
+    try:
+        return r.recognize_google(audio)
+    except sr.UnknownValueError:
+        return "Google Speech Recognition could not understand audio"
+    except sr.RequestError as e:
+        return "Could not request results from Google Speech Recognition service; {0}".format(e)
 
 # Initialize the LLM once outside the loop
 llm = Ollama(model="mistral")
@@ -15,7 +29,10 @@ chain = prompt | llm
 
 while True:
     # Request a new prompt from the user
-    query = input("Enter your query (or type 'exit' to quit): ")
+    #  query = input("Enter your query (or type 'exit' to quit): ")
+    query = get_voice_input()
+
+    print("You said: ", query)
     
     # Check if the user wants to exit the loop
     if query.lower() == 'exit':
