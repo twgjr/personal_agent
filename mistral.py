@@ -78,7 +78,7 @@ while True:
                 statement = []
          
          # catch any remaining statement
-        if len(statement) > 0:
+        if len(statement) > 1:
            print("".join(statement))
            play_text_to_speech("".join(statement))
            statement = []
