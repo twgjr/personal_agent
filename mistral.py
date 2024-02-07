@@ -51,7 +51,7 @@ while True:
       # Stream the response for the current query
       # for chunks in chain.stream({"input": query}):
          # print(chunks, end='')
-      response = chain({"input": query}) 
+      response = chain.invoke({"input": query}) 
       tts = gTTS(text=response, lang='en')
       tts.save("response.mp3")
       os.system("mpg321 response.mp3")
