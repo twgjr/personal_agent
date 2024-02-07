@@ -11,7 +11,7 @@ def get_voice_input():
     try:
         return r.recognize_google(audio)
     except sr.UnknownValueError:
-        return get_voice_input()
+        return r.recognize_google(audio)
     except sr.RequestError as e:
         return "Could not request results from Google Speech Recognition service; {0}".format(e)
 
