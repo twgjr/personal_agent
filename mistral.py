@@ -53,7 +53,8 @@ while True:
       # response = chain.invoke({"input": query}) 
       # play_text_to_speech("... "+response)
       for chunk in chain.stream({"input": query}):
-         play_text_to_speech(chunk.content)
+         print(chunk)
+         play_text_to_speech(chunk)
 
       # Optionally, add a newline or some separation after each response
       print("\n--- End of response ---\n")
