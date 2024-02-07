@@ -32,7 +32,7 @@ while True:
     #  query = input("Enter your query (or type 'exit' to quit): ")
     query = get_voice_input()
 
-    if query != "Wally":
+    if query == "Wally":
 
       print("You said: ", query)
 
