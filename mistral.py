@@ -52,9 +52,14 @@ while True:
       # send llm respons to text to speech
       # response = chain.invoke({"input": query}) 
       # play_text_to_speech("... "+response)
+      statement = []
       for chunk in chain.stream({"input": query}):
-         print(chunk)
-         play_text_to_speech(chunk)
+         if(chunk != "!" and chunk != "?" and chunk != "." and chunk != ","):
+            statement.append(chunk)
+         else:
+            print(' '.join(statement))
+            play_text_to_speech("... "+' '.join(statement))
+            statement = []
 
       # Optionally, add a newline or some separation after each response
       print("\n--- End of response ---\n")
