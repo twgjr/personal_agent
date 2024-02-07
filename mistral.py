@@ -40,11 +40,11 @@ while True:
     query = get_voice_input()
 
     if query == "Wally":
-      play_text_to_speech("Hello, I am Wally. How can I help you?")
+      play_text_to_speech("...Hello, I am Wally. How can I help you?")
     
       query = get_voice_input()
-      play_text_to_speech("You said: " + query)
-      play_text_to_speech("I am processing your request. Please wait.")
+      play_text_to_speech("...You said: " + query)
+      play_text_to_speech("...Please wait while I think.")
       
       # Check if the user wants to exit the loop
       if query.lower() == 'exit':
@@ -52,7 +52,7 @@ while True:
 
       # send llm respons to text to speech
       response = chain.invoke({"input": query}) 
-      play_text_to_speech(response)
+      play_text_to_speech("..."+response)
 
       # Optionally, add a newline or some separation after each response
       print("\n--- End of response ---\n")
