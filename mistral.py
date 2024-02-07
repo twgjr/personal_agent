@@ -33,17 +33,21 @@ while True:
     query = get_voice_input()
 
     if query != "Wally":
-        continue
 
-    print("You said: ", query)
+      print("You said: ", query)
+
+      print("Go ahead and speak")
     
-    # Check if the user wants to exit the loop
-    if query.lower() == 'exit':
-        break
+      query = get_voice_input()
 
-    # Stream the response for the current query
-    for chunks in chain.stream({"input": query}):
-        print(chunks, end='')
+      
+      # Check if the user wants to exit the loop
+      if query.lower() == 'exit':
+         break
 
-    # Optionally, add a newline or some separation after each response
-    print("\n--- End of response ---\n")
+      # Stream the response for the current query
+      for chunks in chain.stream({"input": query}):
+         print(chunks, end='')
+
+      # Optionally, add a newline or some separation after each response
+      print("\n--- End of response ---\n")
