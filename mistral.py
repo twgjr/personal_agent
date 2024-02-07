@@ -57,8 +57,8 @@ while True:
          if(chunk != "!" and chunk != "?" and chunk != "." and chunk != ","):
             statement.append(chunk)
          else:
-            print(' '.join(statement))
-            play_text_to_speech("... "+' '.join(statement))
+            print(''.join(statement) + chunk)
+            play_text_to_speech(''.join(statement) + chunk)
             statement = []
 
       # Optionally, add a newline or some separation after each response
