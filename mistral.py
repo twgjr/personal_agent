@@ -54,7 +54,7 @@ while True:
       # play_text_to_speech("... "+response)
       statement = []
       for chunk in chain.stream({"input": query}):
-         if(chunk != "!" and chunk != "?" and chunk != "." and chunk != ","):
+         if(chunk != "!" and chunk != "?" and chunk != "." and chunk != '."'):
             statement.append(chunk)
          else:
             print(''.join(statement) + chunk)
