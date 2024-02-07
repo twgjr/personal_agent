@@ -10,7 +10,7 @@ def get_voice_input():
     with sr.Microphone() as source:
         audio = r.listen(source)
     try:
-        return r.recognize_google(audio)
+        return r.recognize_sphinx(audio)
     except sr.UnknownValueError:
         raise
     except sr.RequestError as e:
@@ -51,7 +51,7 @@ while True:
         continue
 
     try:
-        play_text_to_speech("... You said: " + query)
+        play_text_to_speech("You said: " + query)
         play_text_to_speech("Please wait while I think.")
     except:
         continue
