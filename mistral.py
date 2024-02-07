@@ -72,7 +72,6 @@ while True:
                 or chunk == "."
                 or chunk == '."'
                 or chunk == '!"'
-                or chunk == "\n"
             ):
                 print("".join(statement))
                 play_text_to_speech("".join(statement))
