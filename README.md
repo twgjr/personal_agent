@@ -13,13 +13,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.10 or higher
 - pip package manager
 
 ### Installation
 
 1. Clone the repo.  It is currently private, so you will need to be added as a collaborator.
-2. Install the required packages.
+2. Install the required packages using the setup.py file.
 
 
 ## Usage
