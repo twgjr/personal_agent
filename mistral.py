@@ -1,6 +1,8 @@
 from langchain_community.llms import Ollama
 from langchain_core.prompts import ChatPromptTemplate
 import speech_recognition as sr
+from gtts import gTTS
+import os
 
 def get_voice_input():
     r = sr.Recognizer()
@@ -45,9 +47,13 @@ while True:
       if query.lower() == 'exit':
          break
 
+
       # Stream the response for the current query
       for chunks in chain.stream({"input": query}):
-         print(chunks, end='')
+         # print(chunks, end='')
+         tts = gTTS(text=chunks, lang='en')
+         tts.save("response.mp3")
+         os.system("mpg321 response.mp3")
 
       # Optionally, add a newline or some separation after each response
       print("\n--- End of response ---\n")
