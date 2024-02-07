@@ -77,6 +77,12 @@ while True:
                 print("".join(statement))
                 play_text_to_speech("".join(statement))
                 statement = []
+         
+         # catch any remaining statement
+        if len(statement) > 0:
+           print("".join(statement))
+           play_text_to_speech("".join(statement))
+           statement = []
 
         # Optionally, add a newline or some separation after each response
         print("\n--- End of response ---\n")
