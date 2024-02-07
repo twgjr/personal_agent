@@ -46,42 +46,49 @@ while True:
     # Request a new prompt from the user
     query = get_voice_input()
 
-    if query == "Wally":
-        play_text_to_speech("... Hello, I am Wally. How can I help you?")
+    play_text_to_speech("... Hello. How can I help you?")
 
+    try:
         query = get_voice_input()
-        while query == "Unknown value error":
-            query = get_voice_input()
-        play_text_to_speech("... You said: " + query)
-        play_text_to_speech("... Please wait while I think.")
+    except:
+        play_text_to_speech("I'm sorry, I didn't catch that. Please try again.")
+        continue
 
-        # Check if the user wants to exit the loop
-        if query.lower() == "exit":
-            break
+    try:
+        play_text_to_speech("... You said: " + query + "Please wait while I think.")
+    except:
+        continue
 
-        # send llm respons to text to speech
-        # response = chain.invoke({"input": query})
-        # play_text_to_speech("... "+response)
-        statement = []
-        for chunk in chain.stream({"input": query}):
-            statement.append(chunk)
+    # Check if the user wants to exit the loop
+    if query.lower() == "exit":
+        break
 
-            if (
-                chunk == "!"
-                or chunk == "?"
-                or chunk == "."
-                or chunk == '."'
-                or chunk == '!"'
-            ):
-                print("".join(statement))
+    # send llm response to text to speech
+    statement = []
+    for chunk in chain.stream({"input": query}):
+        statement.append(chunk)
+
+        # type hint chunk as string
+        chunk: str = chunk
+        # check if chunk string contains punctuation
+        if "!" in chunk or "?" in chunk or "." in chunk:
+            print("".join(statement))
+            try:
                 play_text_to_speech("".join(statement))
                 statement = []
-         
-         # catch any remaining statement
-        if len(statement) > 1:
-           print("".join(statement))
-           play_text_to_speech("".join(statement))
-           statement = []
+            except:
+                play_text_to_speech("Something went wrong. Please try again.")
+                continue
 
-        # Optionally, add a newline or some separation after each response
-        print("\n--- End of response ---\n")
+    # catch any remaining statement
+    if len(statement) > 1:
+        print("".join(statement))
+        try:
+            play_text_to_speech("".join(statement))
+            statement = []
+        except:
+            play_text_to_speech("Something went wrong. Please try again.")
+            continue
+
+    # Optionally, add a newline or some separation after each response
+    print("\n--- End of response ---\n")
