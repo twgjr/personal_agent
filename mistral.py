@@ -17,6 +17,11 @@ def get_voice_input():
     except sr.RequestError as e:
         return "Could not request results from Google Speech Recognition service; {0}".format(e)
 
+def play_text_to_speech(text):
+    tts = gTTS(text=text, lang='en')
+    tts.save("response.mp3")
+    os.system("mpg321 response.mp3")
+
 # Initialize the LLM once outside the loop
 llm = Ollama(model="mistral")
 
@@ -35,26 +40,19 @@ while True:
     query = get_voice_input()
 
     if query == "Wally":
-
-      print("You said: ", query)
-
-      print("Go ahead and speak")
+      play_text_to_speech("Hello, I am Wally. How can I help you?")
     
       query = get_voice_input()
-
+      play_text_to_speech("You said: " + query)
+      play_text_to_speech("I am processing your request. Please wait.")
       
       # Check if the user wants to exit the loop
       if query.lower() == 'exit':
          break
 
-
-      # Stream the response for the current query
-      # for chunks in chain.stream({"input": query}):
-         # print(chunks, end='')
+      # send llm respons to text to speech
       response = chain.invoke({"input": query}) 
-      tts = gTTS(text=response, lang='en')
-      tts.save("response.mp3")
-      os.system("mpg321 response.mp3")
+      play_text_to_speech(response)
 
       # Optionally, add a newline or some separation after each response
       print("\n--- End of response ---\n")
