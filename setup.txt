@@ -1,2 +1,0 @@
-1.  follow directions at:  https://python.langchain.com/docs/integrations/llms/ollama
-2.  
